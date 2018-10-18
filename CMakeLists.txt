@@ -120,12 +120,13 @@ install(FILES src/thinkfan.1 DESTINATION "${CMAKE_INSTALL_MANDIR}/man1")
 install(FILES src/thinkfan.conf.5 DESTINATION "${CMAKE_INSTALL_MANDIR}/man5")
 
 if(SYSTEMD_FOUND)
+    set(SYSTEMD_CONFIGURATIONS_FILES_DIR "/usr/lib/systemd/system" )
     configure_file(rcscripts/systemd/thinkfan.service.cmake
 	rcscripts/systemd/thinkfan.service)
     install(FILES
 	rcscripts/systemd/thinkfan-wakeup.service
 	"${CMAKE_BINARY_DIR}/rcscripts/systemd/thinkfan.service"
-	DESTINATION "${CMAKE_INSTALL_LIBDIR}/systemd/system")
+	DESTINATION "${SYSTEMD_CONFIGURATIONS_FILES_DIR}")
     if(NOT EXISTS "/etc/systemd/system/thinkfan.service.d/override.conf")
 	install(FILES
 	    rcscripts/systemd/override.conf
